@@ -1,9 +1,9 @@
 import axios from '@/services/axios.service'
 
-export default abstract class Base {
+abstract class Base {
   constructor(protected base: string) {}
 
-  search(params: any): Promise<any> {
+  search(params?: any): Promise<any> {
     return axios.get(`${this.base}`, { params })
   }
 
@@ -23,3 +23,5 @@ export default abstract class Base {
     return axios.delete(`${this.base}/${id}`)
   }
 }
+
+export default Base

@@ -3,7 +3,8 @@ import type { AxiosInstance } from 'axios'
 // import { useAuthStore } from '@/stores/auth.store';
 
 const axios: AxiosInstance = Axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  // baseURL: import.meta.env.VITE_API_URL,
+  baseURL: 'https://jsonplaceholder.typicode.com',
 })
 
 axios.interceptors.request.use(
