@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import type { AxiosInstance } from 'axios'
-// import { useAuthStore } from '@/stores/auth.store';
+import { useAuthStore } from '@/stores/auth.store'
 
 const axios: AxiosInstance = Axios.create({
   baseURL: import.meta.env.VITE_API_URL
@@ -8,15 +8,10 @@ const axios: AxiosInstance = Axios.create({
 
 axios.interceptors.request.use(
   (config) => {
-    /**
-     * you can do something here
-     */
-    // const authStore = useAuthStore()
-
-    if (sessionStorage.getItem('access_token')) {
-      // set the authentication bearer
-      config.headers.common.Authorization =
-        sessionStorage.getItem('access_token')
+    const authStore = useAuthStore()
+    if (authStore.getToken) {
+      // Set the authentication bearer
+      config.headers.Authorization = `Bearer ${authStore.getToken}`
     }
 
     return config

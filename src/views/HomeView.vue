@@ -1,6 +1,6 @@
 <script lang="ts">
 import TheWelcome from '@/components/TheWelcome.vue'
-import User from '@/api/user.api'
+import Product from '@/api/product.api'
 import { ref, reactive } from 'vue'
 //
 export default {
@@ -25,7 +25,7 @@ export default {
   async mounted() {
     console.log(this.count) // 0
 
-    this.users = await User.search()
+    this.users = await Product.search()
 
     // console.log(users)
   }

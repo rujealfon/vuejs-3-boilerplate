@@ -1,31 +1,38 @@
-<script setup lang="ts">
-import { ref, reactive } from 'vue'
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'pinia'
 import { useAuthStore } from '@/stores/auth.store'
 
-const authStore = useAuthStore()
-let errorMessage = ref('')
+export default defineComponent({
+  data() {
+    return {
+      errorMessage: '',
+      form: {
+        email: '',
+        password: ''
+      }
+    }
+  },
 
-const form = reactive({
-  email: '',
-  password: ''
-})
+  computed: {
+    ...mapState(useAuthStore, ['getToken'])
+  },
 
-function submit() {
-  const payload = {
-    email: form.email,
-    password: form.password
+  methods: {
+    ...mapActions(useAuthStore, ['login']),
+
+    async submit() {
+      try {
+        await this.login({
+          email: this.form.email,
+          password: this.form.password
+        })
+      } catch (error) {
+        this.errorMessage = error?.response?.data?.message
+      }
+    }
   }
-
-  authStore
-    .login(payload)
-    .then((response: any) => {
-      console.log(response)
-      // sessionStorage.setItem('access_token', response.data.access_token)
-    })
-    .catch((error) => {
-      errorMessage.value = error?.response?.data?.message
-    })
-}
+})
 </script>
 
 <template>
@@ -61,7 +68,7 @@ function submit() {
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 
-    <div>{{ authStore.token }}></div>
+    <div>{{ getToken }}></div>
   </form>
 </template>
 
