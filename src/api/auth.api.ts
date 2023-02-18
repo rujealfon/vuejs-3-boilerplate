@@ -7,10 +7,9 @@ class Auth extends Base {
     super('/auth')
   }
 
-  login(payload: ILoginRequest) {
-    return axios.post<ILoginResponse>(`${this.base}/login`, payload)
+  login(payload: ILoginRequest): Promise<ILoginResponse> {
+    return axios.post(`${this.base}/login`, payload)
   }
-
   register(payload: any): Promise<any> {
     return axios.post(`${this.base}/register`, payload)
   }

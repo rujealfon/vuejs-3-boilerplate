@@ -2,10 +2,10 @@
 import TheWelcome from '@/components/TheWelcome.vue'
 import User from '@/api/user.api'
 import { ref, reactive } from 'vue'
-
+//
 export default {
   components: {
-    TheWelcome,
+    TheWelcome
   },
 
   setup() {
@@ -18,7 +18,7 @@ export default {
     // expose to template and other options API hooks
     return {
       count,
-      users,
+      users
     }
   },
 
@@ -28,7 +28,7 @@ export default {
     this.users = await User.search()
 
     // console.log(users)
-  },
+  }
 }
 
 // const we = Auth.login({ username: 'ruje' })

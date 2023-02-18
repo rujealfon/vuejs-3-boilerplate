@@ -16,7 +16,7 @@ export abstract class HTTPBaseService {
   public constructor(baseURL: string, token: string) {
     this.baseURL = baseURL
     this.instance = axios.create({
-      baseURL,
+      baseURL
     })
     this.token = token
 
@@ -61,14 +61,14 @@ export abstract class HTTPBaseService {
 
   private async refreshToken(): Promise<RefreshToken> {
     const refreshTokenRequest = {
-      hashToken: this.token,
+      hashToken: this.token
     }
 
     const { data } = await this.addRequestOptionsForClientSecrect()
     const options: AxiosRequestConfig = {
       headers: {
-        CLIENT_KEY: data.clientKey,
-      },
+        CLIENT_KEY: data.clientKey
+      }
     }
 
     return axios.post(

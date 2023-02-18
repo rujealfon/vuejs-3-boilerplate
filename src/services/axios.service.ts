@@ -4,7 +4,7 @@ import type { AxiosInstance } from 'axios'
 
 const axios: AxiosInstance = Axios.create({
   // baseURL: import.meta.env.VITE_API_URL,
-  baseURL: 'https://jsonplaceholder.typicode.com',
+  baseURL: 'https://jsonplaceholder.typicode.com'
 })
 
 axios.interceptors.request.use(

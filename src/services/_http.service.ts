@@ -10,7 +10,7 @@ export default abstract class HttpService {
 
   public constructor() {
     this.instance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
+      baseURL: import.meta.env.VITE_API_URL
     })
 
     this._initializeResponseInterceptor()
