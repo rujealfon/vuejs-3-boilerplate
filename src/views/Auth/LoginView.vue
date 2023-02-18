@@ -60,6 +60,8 @@ function submit() {
     </div>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+
+    <div>{{ authStore.token }}></div>
   </form>
 </template>
 

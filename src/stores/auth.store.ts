@@ -18,6 +18,8 @@ export const useAuthStore = defineStore({
       try {
         const response = await AuthService.login(payload)
 
+        this.token = response.data.access_token
+
         return response.data.access_token
       } catch (error) {
         return error
