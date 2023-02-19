@@ -5,7 +5,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from '@/App.vue'
 import router from '@/router'
 
-import '@/assets/main.css'
+import '@/assets/scss/index.scss'
 
 const app = createApp(App)
 
