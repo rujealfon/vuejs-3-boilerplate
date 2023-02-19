@@ -6,7 +6,7 @@ class Product extends Base {
   }
 
   paginate() {
-    return this.axios.post(`${this.base}?_limit=2`)
+    return this.$axios.post<Promise<any>>(`${this.resource}?_limit=2`)
   }
 }
 

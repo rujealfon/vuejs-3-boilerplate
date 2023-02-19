@@ -1,62 +1,44 @@
 <script lang="ts">
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'pinia'
+import { useProductStore } from '@/stores/product.store'
 import TheWelcome from '@/components/TheWelcome.vue'
-import Product from '@/api/product.api'
-import { ref, reactive } from 'vue'
-//
-export default {
+
+export default defineComponent({
   components: {
     TheWelcome
   },
-
-  setup() {
-    const count = ref(0)
-    const users = ref()
-
-    console.log(count.value)
-    console.log(users.value)
-
-    // expose to template and other options API hooks
+  data() {
     return {
-      count,
-      users
+      product: ''
     }
   },
 
-  async mounted() {
-    console.log(this.count) // 0
+  computed: {
+    ...mapState(useProductStore, ['products'])
+  },
 
-    this.users = await Product.search()
+  async created() {
+    try {
+      await this.getProducts()
 
-    // console.log(users)
+      this.product = this.products.find((product) => product.id === 1)
+      console.log()
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  methods: {
+    ...mapActions(useProductStore, ['getProducts'])
   }
-}
-
-// const we = Auth.login({ username: 'ruje' })
-
-// const users = await User.search()
-// console.log(users.data)
-
-// import { defineComponent } from 'vue'
-
-// export default defineComponent({
-//   components: {
-//     TheWelcome,
-//   },
-//   data() {
-//     return {
-//       message: 'Hello!',
-//     }
-//   },
-//   async mounted() {
-//     const users = await User.search()
-//     console.log(users)
-//   },
-// })
+})
 </script>
 
 <template>
   <main>
-    <pre> {{ users }}</pre>
+    <pre> {{ products }}</pre>
+    {{ product }}
     <TheWelcome />
   </main>
 </template>

@@ -1,8 +1,8 @@
-export interface ILoginRequest {
+export interface LoginRequest {
   email: string
   password: string
 }
 
-export interface ILoginResponse {
-  accessToken: string
+export interface LoginResponse {
+  access_token: string
 }

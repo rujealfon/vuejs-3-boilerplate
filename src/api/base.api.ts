@@ -1,28 +1,31 @@
-import Axios from '@/services/axios.service'
+import axios from '@/services/axios.service'
 
 abstract class Base {
-  protected axios = Axios
+  protected $axios = axios
 
-  constructor(protected base: string) {}
+  constructor(protected resource: string) {}
 
-  search(params?: any): Promise<any> {
-    return this.axios.get(`${this.base}`, { params })
+  search(params?: any) {
+    return this.$axios.get<Promise<any>>(`${this.resource}`, { params })
   }
 
   detail(id: number) {
-    return this.axios.get(`${this.base}/${id}`)
+    return this.$axios.get<Promise<any>>(`${this.resource}/${id}`)
   }
 
   create(payload: any) {
-    return this.axios.post(`${this.base}`, payload)
+    return this.$axios.post<Promise<any>>(`${this.resource}`, payload)
   }
 
   update(payload: any) {
-    return this.axios.put(`${this.base}/${payload.id}`, payload)
+    return this.$axios.put<Promise<any>>(
+      `${this.resource}/${payload.id}`,
+      payload
+    )
   }
 
   delete(id: any) {
-    return this.axios.delete(`${this.base}/${id}`)
+    return this.$axios.delete<Promise<any>>(`${this.resource}/${id}`)
   }
 }
 

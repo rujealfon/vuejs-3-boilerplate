@@ -22,23 +22,23 @@ axios.interceptors.request.use(
 )
 
 axios.interceptors.response.use(
-  (response) => {
+  (res) => {
     /**
      * you can do something here
      */
-    return response
+    return res.data
   },
-  (error) => {
-    if (error.response && error.response.data) {
-      const code = error.response.status
-      const msg = error.response.data.message
-      // ElMessage.error(`Code: ${code}, Message: ${msg}`)
+  (err) => {
+    if (err.res && err.res.data) {
+      // const code = err.res.status
+      // const msg = err.res.data.message
+      // ElMessage.err(`Code: ${code}, Message: ${msg}`)
       // eslint-disable-next-line no-console
-      console.error(`[Axios Error]`, error.response)
+      console.error(`[Axios err]`, err.res)
     } else {
-      // ElMessage.error(`${error}`)
+      // ElMessage.err(`${err}`)
     }
-    return Promise.reject(error)
+    return Promise.reject(err)
   }
 )
 

@@ -1,15 +1,15 @@
 import axios from '@/services/axios.service'
-import type { ILoginRequest, ILoginResponse } from '@/models/auth.model'
+import type { LoginRequest, LoginResponse } from '@/models/auth.model'
 
 class Auth {
-  private base: string = '/auth'
+  private resource: string = '/auth'
 
-  login(payload: ILoginRequest): Promise<ILoginResponse> {
-    return axios.post(`${this.base}/login`, payload)
+  login(payload: LoginRequest) {
+    return axios.post<LoginResponse>(`${this.resource}/login`, payload)
   }
 
-  register(payload: any): Promise<any> {
-    return axios.post(`${this.base}/register`, payload)
+  register(payload: any) {
+    return axios.post<Promise<any>>(`${this.resource}/register`, payload)
   }
 }
 

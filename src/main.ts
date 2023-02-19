@@ -5,10 +5,6 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 import App from '@/App.vue'
 import router from '@/router'
 
-// Add interceptor through side effects
-// https://github.com/vuejs/pinia/discussions/687
-// import axios from '@/services/axios.service'
-
 import '@/assets/main.css'
 
 const app = createApp(App)

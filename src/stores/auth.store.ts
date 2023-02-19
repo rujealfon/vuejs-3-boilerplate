@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import AuthService from '@/api/auth.api'
-import type { ILoginRequest } from '@/models/auth.model'
+import Auth from '@/api/auth.api'
+import type { LoginRequest } from '@/models/auth.model'
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -14,15 +14,13 @@ export const useAuthStore = defineStore({
   },
 
   actions: {
-    async login(payload: ILoginRequest) {
+    async login(payload: LoginRequest) {
       try {
-        const response = await AuthService.login(payload)
-
-        this.token = response.data.access_token
-
-        return response.data.access_token
-      } catch (error) {
-        return error
+        const res = await Auth.login(payload)
+        this.token = res.access_token
+        return res
+      } catch (err) {
+        return err
       }
     }
   },
