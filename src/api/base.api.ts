@@ -24,7 +24,7 @@ abstract class Base {
     )
   }
 
-  delete(id: any) {
+  delete(id: number) {
     return this.$axios.delete<Promise<any>>(`${this.resource}/${id}`)
   }
 }
