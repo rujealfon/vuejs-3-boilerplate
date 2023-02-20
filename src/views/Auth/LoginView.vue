@@ -2,6 +2,8 @@
 import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useAuthStore } from '@/stores/auth.store'
+import type { AxiosError } from 'axios'
+import type { Error } from '@/interfaces/error.interface'
 
 export default defineComponent({
   data() {
@@ -27,9 +29,9 @@ export default defineComponent({
           email: this.form.email,
           password: this.form.password
         })
-      } catch (error) {
-        console.log(error)
-        // this.errorMessage = error.
+      } catch (err) {
+        const error = err as AxiosError<Error>
+        this.errorMessage = error.response?.data.message!
       }
     }
   }
