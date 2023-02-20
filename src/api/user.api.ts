@@ -1,10 +1,10 @@
 import Base from '@/api/base.api'
-// import axios from '@/services/axios.service'
+import type { User } from '@/models/user.model'
 
-class User extends Base {
+class UserApi extends Base<User> {
   constructor() {
     super('/users')
   }
 }
 
-export default new User()
+export default new UserApi()

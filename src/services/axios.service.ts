@@ -16,8 +16,8 @@ axios.interceptors.request.use(
 
     return config
   },
-  (error) => {
-    return Promise.reject(error)
+  (err) => {
+    return Promise.reject(err)
   }
 )
 
@@ -29,12 +29,17 @@ axios.interceptors.response.use(
     return res.data
   },
   (err) => {
-    if (err.res && err.res.data) {
-      // const code = err.res.status
+    const authStore = useAuthStore()
+    if (err.response && err.response.data) {
+      const code = err.response.status
       // const msg = err.res.data.message
       // ElMessage.err(`Code: ${code}, Message: ${msg}`)
       // eslint-disable-next-line no-console
-      console.error(`[Axios err]`, err.res)
+      console.error(`[Axios err]`, err.response)
+
+      if (code === 401) {
+        authStore.logout()
+      }
     } else {
       // ElMessage.err(`${err}`)
     }

@@ -1,7 +1,7 @@
 import axios from '@/services/axios.service'
 import type { LoginRequest, LoginResponse } from '@/models/auth.model'
 
-class Auth {
+class AuthApi {
   private resource: string = '/auth'
 
   login(payload: LoginRequest) {
@@ -13,4 +13,4 @@ class Auth {
   }
 }
 
-export default new Auth()
+export default new AuthApi()

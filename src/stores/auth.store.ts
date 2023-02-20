@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import Auth from '@/api/auth.api'
+import AuthApi from '@/api/auth.api'
 import type { LoginRequest } from '@/models/auth.model'
 
 export const useAuthStore = defineStore({
@@ -16,12 +16,16 @@ export const useAuthStore = defineStore({
   actions: {
     async login(payload: LoginRequest) {
       try {
-        const res = await Auth.login(payload)
+        const res = await AuthApi.login(payload)
         this.token = res.access_token
         return res
       } catch (err) {
         return err
       }
+    },
+
+    logout() {
+      this.token = ''
     }
   },
 
