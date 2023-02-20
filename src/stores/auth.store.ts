@@ -17,10 +17,10 @@ export const useAuthStore = defineStore({
     async login(payload: LoginRequest) {
       try {
         const res = await AuthApi.login(payload)
-        this.token = res.access_token
+        this.token = res.data.access_token
         return res
       } catch (err) {
-        return err
+        return Promise.reject(err)
       }
     },
 

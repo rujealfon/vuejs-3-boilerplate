@@ -23,26 +23,35 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (res) => {
-    /**
-     * you can do something here
-     */
-    return res.data
+    return res
   },
   (err) => {
-    const authStore = useAuthStore()
-    if (err.response && err.response.data) {
-      const code = err.response.status
-      // const msg = err.res.data.message
-      // ElMessage.err(`Code: ${code}, Message: ${msg}`)
-      // eslint-disable-next-line no-console
-      console.error(`[Axios err]`, err.response)
+    if (err.response && err.response.status) {
+      const authStore = useAuthStore()
+      const status = err.response.status
 
-      if (code === 401) {
-        authStore.logout()
+      switch (status) {
+        case 401:
+          authStore.logout()
+          break
+        case 403:
+          // Handle 403 here
+          break
+        case 410:
+          // Handle 410 here
+          break
+        case 412:
+          // Handle 412 here
+          break
+        case 500:
+          // Add toastr here
+          console.log(err)
+          break
+        default:
+          break
       }
-    } else {
-      // ElMessage.err(`${err}`)
     }
+
     return Promise.reject(err)
   }
 )

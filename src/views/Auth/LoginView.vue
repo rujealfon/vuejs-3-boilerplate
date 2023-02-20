@@ -28,7 +28,8 @@ export default defineComponent({
           password: this.form.password
         })
       } catch (error) {
-        this.errorMessage = error?.response?.data?.message
+        console.log(error)
+        // this.errorMessage = error.
       }
     }
   }

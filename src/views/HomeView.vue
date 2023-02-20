@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue'
 import { mapState, mapActions } from 'pinia'
 import { useProductStore } from '@/stores/product.store'
+import type { Product } from '@/models/product.model'
 import TheWelcome from '@/components/TheWelcome.vue'
 
 export default defineComponent({
@@ -11,7 +12,7 @@ export default defineComponent({
 
   data() {
     return {
-      product: ''
+      product: {} as Product
     }
   },
 
@@ -21,10 +22,11 @@ export default defineComponent({
 
   async created() {
     try {
-      await this.getProducts()
+      const gg = await this.getProducts()
 
-      this.product = this.products.find((product) => product.id === 1)
-      console.log()
+      console.log(gg)
+
+      this.product = this.products.find((product) => product.id === 1)!
     } catch (error) {
       console.log(error)
     }

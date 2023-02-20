@@ -35,11 +35,11 @@ export const useProductStore = defineStore({
       try {
         const res = await ProductApi.search(query)
 
-        this.products = res
+        this.products = res.data
 
-        return res
+        return res.data
       } catch (err) {
-        return err
+        return Promise.reject(err)
       }
     },
 
@@ -47,11 +47,11 @@ export const useProductStore = defineStore({
       try {
         const res = await ProductApi.detail(id)
 
-        this.product = res
+        this.product = res.data
 
-        return res
+        return res.data
       } catch (err) {
-        return err
+        return Promise.reject(err)
       }
     },
 
@@ -59,11 +59,11 @@ export const useProductStore = defineStore({
       try {
         const res = await ProductApi.create(payload)
 
-        this.products.push(res)
+        this.products.push(res.data)
 
-        return res
+        return res.data
       } catch (err) {
-        return err
+        return Promise.reject(err)
       }
     },
 
@@ -71,14 +71,14 @@ export const useProductStore = defineStore({
       try {
         const res = await ProductApi.update(payload)
         const index = this.products.findIndex(
-          (product) => product.id === res.id
+          (product) => product.id === res.data.id
         )
 
         Object.assign(this.products[index], res)
 
-        return res
+        return res.data
       } catch (err) {
-        return err
+        return Promise.reject(err)
       }
     },
 
@@ -89,9 +89,9 @@ export const useProductStore = defineStore({
 
         this.products.splice(index, 1)
 
-        return res
+        return res.data
       } catch (err) {
-        return err
+        return Promise.reject(err)
       }
     }
   }
