@@ -10,10 +10,6 @@ export const useProductStore = defineStore({
     product: {} as Product
   }),
 
-  // getters: {
-  //   getProducts: (state) => state.products
-  // },
-
   actions: {
     async getProducts(params?: Record<string, string | number>) {
       // query

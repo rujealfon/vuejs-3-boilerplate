@@ -1,40 +1,15 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState, mapActions } from 'pinia'
-import { useProductStore } from '@/stores/product.store'
-import type { Product } from '@/models/product.model'
+<script lang="ts" setup>
+import { onMounted } from 'vue'
 import TheWelcome from '@/components/TheWelcome.vue'
+import { useProductStore } from '@/stores/product.store'
+import { storeToRefs } from 'pinia'
 
-export default defineComponent({
-  components: {
-    TheWelcome
-  },
+const { products, product } = storeToRefs(useProductStore())
+const { getProducts } = useProductStore()
 
-  data() {
-    return {
-      product: {} as Product
-    }
-  },
-
-  computed: {
-    ...mapState(useProductStore, ['products'])
-  },
-
-  async created() {
-    try {
-      const gg = await this.getProducts()
-
-      console.log(gg)
-
-      this.product = this.products.find((product) => product.id === 1)!
-    } catch (error) {
-      console.log(error)
-    }
-  },
-
-  methods: {
-    ...mapActions(useProductStore, ['getProducts'])
-  }
+onMounted(() => {
+  // Get products
+  getProducts()
 })
 </script>
 

@@ -9,9 +9,9 @@ const axios: AxiosInstance = Axios.create({
 axios.interceptors.request.use(
   (config) => {
     const authStore = useAuthStore()
-    if (authStore.getToken) {
+    if (authStore.token) {
       // Set the authentication bearer
-      config.headers.Authorization = `Bearer ${authStore.getToken}`
+      config.headers.Authorization = `Bearer ${authStore.token}`
     }
 
     return config

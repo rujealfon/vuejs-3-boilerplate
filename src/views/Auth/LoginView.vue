@@ -1,45 +1,34 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState, mapActions } from 'pinia'
+<script setup lang="ts">
+import { ref } from 'vue'
 import { useAuthStore } from '@/stores/auth.store'
+import { storeToRefs } from 'pinia'
 import type { AxiosError } from 'axios'
 import type { Error } from '@/interfaces/error.interface'
 
-export default defineComponent({
-  data() {
-    return {
-      errorMessage: '',
-      form: {
-        email: '',
-        password: ''
-      }
-    }
-  },
+const { token } = storeToRefs(useAuthStore())
+const { login } = useAuthStore()
 
-  computed: {
-    ...mapState(useAuthStore, ['getToken'])
-  },
-
-  methods: {
-    ...mapActions(useAuthStore, ['login']),
-
-    async submit() {
-      try {
-        await this.login({
-          email: this.form.email,
-          password: this.form.password
-        })
-      } catch (err) {
-        const error = err as AxiosError<Error>
-        this.errorMessage = error.response?.data.message!
-      }
-    }
-  }
+let errorMessage = ref('')
+const form = ref({
+  email: '',
+  password: ''
 })
+
+const submit = async () => {
+  try {
+    await login({
+      email: form.value.email,
+      password: form.value.password
+    })
+  } catch (err) {
+    const error = err as AxiosError<Error>
+    errorMessage.value = error.response?.data.message!
+  }
+}
 </script>
 
 <template>
-  <form @submit.prevent="submit()">
+  <form @submit="submit()">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">
@@ -71,7 +60,7 @@ export default defineComponent({
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
 
-    <div>{{ getToken }}></div>
+    <div>{{ token }}</div>
   </form>
 </template>
 

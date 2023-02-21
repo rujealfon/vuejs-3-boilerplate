@@ -9,10 +9,6 @@ export const useAuthStore = defineStore({
     token: ''
   }),
 
-  getters: {
-    getToken: (state) => state.token
-  },
-
   actions: {
     async login(payload: LoginRequest) {
       try {
