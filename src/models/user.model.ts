@@ -1,5 +1,9 @@
-import type { Base } from '@/models/base.model'
+import type { Pagination as Paginate } from './pagination.model'
 
-export interface User extends Base {
+export interface User {
   name: string
+}
+
+export interface Pagination extends Paginate {
+  users: User[]
 }

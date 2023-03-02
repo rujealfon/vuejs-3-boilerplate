@@ -1,9 +1,19 @@
-import type { Base } from '@/models/base.model'
+import type { Pagination as Paginate } from './pagination.model'
 
-export interface Product extends Base {
-  name: string
-  cost: number
-  quantity: number
-  locationId: number
-  familyId: number
+export interface Product {
+  id: number
+  title: string
+  description: string
+  price: number
+  discountPercentage: number
+  rating: number
+  stock: number
+  brand: string
+  category: string
+  thumbnail: string
+  images: string[]
+}
+
+export interface Pagination extends Paginate {
+  products: Product[]
 }

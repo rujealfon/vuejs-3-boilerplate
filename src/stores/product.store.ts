@@ -7,6 +7,9 @@ export const useProductStore = defineStore({
 
   state: () => ({
     products: [] as Product[],
+    total: 0 as number,
+    skip: 0 as number,
+    limit: 0 as number,
     product: {} as Product
   }),
 
@@ -14,24 +17,47 @@ export const useProductStore = defineStore({
     async getProducts(params?: Record<string, string | number>) {
       // query
       const query: Record<string, string | number> = {
-        _page: 1,
-        _limit: 3
+        skip: 0,
+        limit: 10
       }
 
-      // page
-      if (params && params.page) {
-        query._page = params.page
+      // skip
+      if (params && params.skip) {
+        query.skip = params.skip
       }
 
       // limit
-      if (params && params.per_page) {
-        query._limit = params.per_page
+      if (params && params.limit) {
+        query.limit = params.limit
+      }
+
+      try {
+        const res = await ProductApi.get(query)
+
+        this.products = res.data.products
+        this.total = res.data.total
+        this.skip = res.data.skip
+        this.limit = res.data.limit
+
+        return res.data
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    },
+
+    async searchProducts(params: string | number) {
+      // query
+      const query = {
+        q: params
       }
 
       try {
         const res = await ProductApi.search(query)
 
-        this.products = res.data
+        this.products = res.data.products
+        this.total = res.data.total
+        this.skip = res.data.skip
+        this.limit = res.data.limit
 
         return res.data
       } catch (err) {
@@ -41,7 +67,7 @@ export const useProductStore = defineStore({
 
     async getProductById(id: number) {
       try {
-        const res = await ProductApi.detail(id)
+        const res = await ProductApi.read(id)
 
         this.product = res.data
 
