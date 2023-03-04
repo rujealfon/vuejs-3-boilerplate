@@ -10,14 +10,14 @@ const { login } = useAuthStore()
 
 let errorMessage = ref('')
 const form = ref({
-  email: '',
-  password: ''
+  username: 'kminchelle',
+  password: '0lelplR'
 })
 
 const submit = async () => {
   try {
     await login({
-      email: form.value.email,
+      username: form.value.username,
       password: form.value.password
     })
   } catch (err) {
@@ -28,7 +28,7 @@ const submit = async () => {
 </script>
 
 <template>
-  <form @submit="submit()">
+  <form @submit.prevent="submit()">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
     <div v-if="errorMessage" class="alert alert-danger" role="alert">
@@ -38,13 +38,13 @@ const submit = async () => {
     <div class="form-floating">
       <input
         id="floatingInput"
-        v-model="form.email"
-        type="email"
+        v-model="form.username"
+        type="text"
         class="form-control"
-        placeholder="name@example.com"
+        placeholder="Username"
         autocomplete="off"
       />
-      <label for="floatingInput">Email address</label>
+      <label for="floatingInput">Username</label>
     </div>
     <div class="form-floating">
       <input

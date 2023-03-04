@@ -8,6 +8,7 @@ const { products, product } = storeToRefs(useProductStore())
 const { getProducts, searchProducts } = useProductStore()
 
 onMounted(() => {
+  var a
   // Get products
   getProducts()
   // searchProducts('Samsung Universe 9')
