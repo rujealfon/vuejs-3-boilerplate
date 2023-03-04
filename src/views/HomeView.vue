@@ -5,10 +5,9 @@ import { useProductStore } from '@/stores/product.store'
 import { storeToRefs } from 'pinia'
 
 const { products, product } = storeToRefs(useProductStore())
-const { getProducts, searchProducts } = useProductStore()
+const { getProducts } = useProductStore()
 
 onMounted(() => {
-  var a
   // Get products
   getProducts()
   // searchProducts('Samsung Universe 9')
